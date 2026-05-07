@@ -22,9 +22,10 @@ def send_done_message(text):
         "disable_web_page_preview": False
     })
 
-@client.on(events.NewMessage)
+@client.on(events.NewMessage(incoming=True))
 async def handler(event):
     message = event.raw_text or ""
+    print("New incoming message:", message)
 
     if TARGET_TEXT.lower() in message.lower():
         links = re.findall(URL_PATTERN, message)
@@ -32,14 +33,18 @@ async def handler(event):
         if links:
             checkin_link = links[0]
             send_done_message(
-                "⏰ Time to check in.\n\n"
-                "Open this link and submit after completing your patrol:\n"
-                f"{checkin_link}\n\n"
-                "Suggested template:\n"
-                "Routine patrol completed around the site. Entry points, fencing, and visible work areas checked. No concerns found."
+                "⏰ Check-in reminder received.\n\n"
+                f"Open this link manually:\n{checkin_link}\n\n"
+                "Suggested patrol template:\n"
+                "1. Start patrol/check-in\n"
+                "2. Check site entry and surroundings\n"
+                "3. Report anything unusual\n"
+                "4. Submit check-in manually"
             )
         else:
-            send_done_message("⏰ Time to check in, but no link was found.")
+            send_done_message(
+                "⏰ Check-in reminder received, but no link was found."
+            )
 
 async def main():
     await client.start(bot_token=BOT_TOKEN)
