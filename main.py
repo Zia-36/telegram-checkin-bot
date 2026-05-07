@@ -25,6 +25,10 @@ def send_done_message(text):
 @client.on(events.NewMessage(incoming=True))
 async def handler(event):
     message = event.raw_text or ""
+    sender = await event.get_sender()
+    print("Sender ID:", event.sender_id)
+    print("Sender username:", getattr(sender, "username", None))
+    print("Sender name:", getattr(sender, "first_name", None))
     print("New incoming message:", message)
 
     if TARGET_TEXT.lower() in message.lower():
