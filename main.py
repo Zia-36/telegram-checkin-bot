@@ -42,8 +42,8 @@ async def handler(event):
             send_done_message("⏰ Time to check in, but no link was found.")
 
 async def main():
+    await client.start(bot_token=BOT_TOKEN)
     send_done_message("✅ Zia Check-in Assistant is running.")
     await client.run_until_disconnected()
 
-with client:
-    client.loop.run_until_complete(main())
+client.loop.run_until_complete(main())
