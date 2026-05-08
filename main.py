@@ -9,6 +9,7 @@ BOT_TOKEN = os.getenv("BOT_TOKEN")
 CHAT_ID = os.getenv("CHAT_ID")
 SESSION_NAME = os.getenv("SESSION_NAME", "zia_session")
 
+TARGET_SENDER_ID = 8505331428
 TARGET_TEXT = "time to check in"
 URL_PATTERN = r"https?://[^\s]+"
 
@@ -25,11 +26,16 @@ def send_done_message(text):
 @client.on(events.NewMessage(incoming=True))
 async def handler(event):
     message = event.raw_text or ""
+
+    if event.sender_id != TARGET_SENDER_ID:
+        print("Ignored message from sender:", event.sender_id)
+        return
+
     sender = await event.get_sender()
-    print("Sender ID:", event.sender_id)
-    print("Sender username:", getattr(sender, "username", None))
-    print("Sender name:", getattr(sender, "first_name", None))
-    print("New incoming message:", message)
+    print("Accepted Sender ID:", event.sender_id)
+    print("Accepted Sender username:", getattr(sender, "username", None))
+    print("Accepted Sender name:", getattr(sender, "first_name", None))
+    print("Accepted incoming message:", message)
 
     if TARGET_TEXT.lower() in message.lower():
         links = re.findall(URL_PATTERN, message)
