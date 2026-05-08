@@ -9,7 +9,7 @@ BOT_TOKEN = os.getenv("BOT_TOKEN")
 CHAT_ID = os.getenv("CHAT_ID")
 SESSION_NAME = os.getenv("SESSION_NAME", "zia_session")
 
-TARGET_TEXT = "Hi Zia Ur Rehman (Ziah), time to check in"
+TARGET_TEXT = "time to check in"
 URL_PATTERN = r"https?://[^\s]+"
 
 client = TelegramClient(SESSION_NAME, API_ID, API_HASH)
@@ -51,7 +51,7 @@ async def handler(event):
             )
 
 async def main():
-    await client.start(bot_token=BOT_TOKEN)
+    await client.start()
     send_done_message("✅ Zia Check-in Assistant is running.")
     await client.run_until_disconnected()
 
