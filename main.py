@@ -9,7 +9,7 @@ BOT_TOKEN = os.getenv("BOT_TOKEN")
 CHAT_ID = os.getenv("CHAT_ID")
 SESSION_NAME = os.getenv("SESSION_NAME", "zia_session")
 
-TARGET_TEXT = "time to check in"
+TARGET_TEXT = "Hi Zia Ur Rehman (Ziah), time to check in"
 URL_PATTERN = r"https?://[^\s]+"
 
 client = TelegramClient(SESSION_NAME, API_ID, API_HASH)
